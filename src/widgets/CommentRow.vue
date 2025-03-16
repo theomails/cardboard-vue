@@ -6,16 +6,19 @@
 
         <Menu :menuId="'colorMenu-' + issue.key"
             menuMaxWidth="200px"
-            caption="<i class='fa-solid fa-palette'></i>"
             :menuItems="colorStatusItems"
                 noDataCaption="No match."
                 :itemRenderer="colorItemRenderer"
                 :searchTextRenderer="colorItemSearchTextRenderer"
-                @item-click="onColorItemClick" />
+                @item-click="onColorItemClick" >
+            <template #caption>
+                <font-awesome-icon :icon="['fas', 'palette']" />
+            </template>
+        </Menu>
 
         <div v-if="isCommentChanged" class="func-tag func-nowrap func-tag-btn" @click="saveIssueComment">Save</div>
         <div v-if="isCommentChanged" class="func-tag func-nowrap func-tag-btn" @click="revertIssueComment">
-            <i class="fa-solid fa-arrow-rotate-left"></i>
+            <font-awesome-icon :icon="['fas', 'arrow-rotate-left']" />
         </div>
     </div>    
 </template>

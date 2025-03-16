@@ -5,7 +5,7 @@
             <div class="app-issue-tags func-flex-grow func-flex-row func-flex-row--spaced func-flex-row--wrap">
                 <div v-for="issueKey in currentIssueKeys" class="func-tag func-nowrap">
                     <span>{{ issueKey }}</span>
-                    <span class="func-close-x" @click="refreshIssueKey(issueKey)"><i class="fa-solid fa-rotate"></i></span>
+                    <span class="func-close-x" @click="refreshIssueKey(issueKey)"><font-awesome-icon :icon="['fas', 'rotate']" /></span>
                     <span class="func-close-x" @click="removeIssueKey(issueKey)">X</span>
                 </div>
                 <span class="func-flex-grow"></span>
@@ -21,12 +21,15 @@
             </div>
 
             <Menu menuId="historyMenu"
-                caption='History Menu <span><i class="fa-solid fa-caret-down"></i></span>'
                 :menuItems="historyMenuItems"
                     noDataCaption="No other issues in history."
-                    @item-click="onHistoryItemClick" />
+                    @item-click="onHistoryItemClick" >
+                <template #caption>
+                    History Menu <span><font-awesome-icon :icon="['fas', 'caret-down']" /></span>                   
+                </template>
+            </Menu>
 
-            <div class="func-tag func-nowrap func-tag-btn" @click="downloadData()"><span><i class="fa-solid fa-download"></i></span></div>
+            <div class="func-tag func-nowrap func-tag-btn" @click="downloadData()"><span><font-awesome-icon :icon="['fas', 'download']" /></span></div>
         </div>
     </div> <!-- END data input -->    
 </template>

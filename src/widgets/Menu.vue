@@ -1,6 +1,8 @@
 <template>
     <div class="func-menu-container func-nowrap">
-        <div class="func-menu-trigger" @click.stop="onToggleMenu" v-html="caption"></div>
+        <div class="func-menu-trigger" @click.stop="onToggleMenu" >
+            <slot name="caption">Menu</slot>
+        </div>
         <div class="func-menu-dropdown" :style="{'max-width': menuMaxWidth?menuMaxWidth:'350px' }" v-if="menuOpen" @click.stop="menuOpen = false">
             <div class="func-menu-filter-outer">
                 <input type="text" class="func-menu-filter-text" placeholder="Type to filter..."
@@ -8,7 +10,7 @@
                     @click.stop @keydown.escape="filterText=''"
                     :ref="menuId + '-filterText'" />
                 <div class="func-menu-filter-clear" @click.stop="clearFilterText" title="Clear Filter">
-                    <i class="fa-regular fa-circle-xmark"></i>
+                    <font-awesome-icon :icon="['far', 'circle-xmark']" />
                 </div>
             </div>
             <div class="func-menu-dropdown-item"

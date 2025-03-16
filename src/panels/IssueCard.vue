@@ -2,7 +2,7 @@
     <div v-if="issue" class="func-card issue-card">
         <div class="func-flex-row func-flex-row--spaced app-card-toolbar">
             <span class="func-flex-grow"></span>
-            <span @click="refreshIssueKey(issue.key)" class="func-tag func-nowrap">Refresh <i class="fa-solid fa-rotate"></i></span>
+            <span @click="refreshIssueKey(issue.key)" class="func-tag func-nowrap">Refresh <font-awesome-icon :icon="['fas', 'rotate']" /></span>
             <span @click="removeIssueKey(issue.key)" class="func-tag func-nowrap">Close X</span>
         </div>
         <div v-if="issue.parent" class="func-flex-row func-gap-bottom" style="overflow: hidden;">
