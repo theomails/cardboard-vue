@@ -58,10 +58,6 @@
     </div>
 </template>
 <script>
-import IssueCard from "./panels/IssueCard.vue";
-import RfcCard from "./panels/RfcCard.vue";
-import ControlPanel from "./panels/ControlPanel.vue";
-import SetupOverlay from "./panels/SetupOverlay.vue";
 import userAppDataService from './services/userappdataservice.js';
 import jiraservice from './services/jiraservice.js';
 import userdetailsservice from './services/userdetailsservice.js';
@@ -233,12 +229,6 @@ export default {
 
             return excludedHistoryItems;
         }
-    },
-    components: {
-        IssueCard,
-        RfcCard,
-        ControlPanel,
-        SetupOverlay
     }
 }
 </script>

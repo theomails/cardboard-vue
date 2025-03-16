@@ -35,7 +35,6 @@
 </template>
 <script>
 import moment from 'https://cdn.jsdelivr.net/npm/moment@2.29.1/dist/moment.js';
-import Menu from "../widgets/Menu.vue";
 
 export default {
     props: ['currentIssueKeys', 'historyMenuItems'],
@@ -78,9 +77,6 @@ export default {
             link.click();
             URL.revokeObjectURL(url);
         }
-    },
-    components: {
-        Menu
     }
 }
 </script>

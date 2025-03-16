@@ -37,12 +37,6 @@
     </div> <!-- issue-card -->    
 </template>
 <script>
-import SmallTitleWithRef from "../widgets/SmallTitleWithRef.vue";
-import MainKeyAndSummaryWithRef from "../widgets/MainKeyAndSummaryWithRef.vue";
-import RightAssigneeStatusDateTags from "../widgets/RightAssigneeStatusDateTags.vue";
-import RightRfcTag from "../widgets/RightRfcTag.vue";
-import CommentRow from "../widgets/CommentRow.vue";
-import TaskRow from "./TaskRow.vue";
 
 export default {
     props: ['issue', 'myName', 'issueComment'],
@@ -62,14 +56,6 @@ export default {
         saveIssueComment(issueKey, issueComment){
             this.$emit('save-issue-comment', issueKey, issueComment);
         }
-    },
-    components: {
-        SmallTitleWithRef,
-        MainKeyAndSummaryWithRef,
-        RightAssigneeStatusDateTags,
-        RightRfcTag,
-        CommentRow,
-        TaskRow
     }
 }
 </script>

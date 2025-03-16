@@ -23,8 +23,6 @@
     </div>    
 </template>
 <script>
-import Menu from "../widgets/Menu.vue";
-
 export default {
     props: ['issueComment', 'issue'],
     data(){
@@ -116,9 +114,6 @@ export default {
             }
             return {};
         }
-    },
-    components: {
-        Menu
     }
 }
 </script>
