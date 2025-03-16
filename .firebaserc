@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "applib-tech"
+  },
+  "targets": {
+    "applib-tech": {
+      "hosting": {
+        "cardboard": [
+          "applib-tech-cardboard"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
