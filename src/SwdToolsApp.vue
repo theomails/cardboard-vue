@@ -61,6 +61,7 @@
 import userAppDataService from './services/userappdataservice.js';
 import jiraservice from './services/jiraservice.js';
 import userdetailsservice from './services/userdetailsservice.js';
+import { eventBus } from '@/services/eventbus';
 
 export default {
     data() {
@@ -196,8 +197,11 @@ export default {
             this.persistAppData(); //Fire and forget
         }
     },
-    mounted(){
-
+    created(){
+        eventBus.on('global-add-issue-key', this.addIssueKey);
+    },
+    beforeUnmount(){
+        eventBus.off('global-add-issue-key', this.addIssueKey);
     },
     computed:{
         userDetails(){

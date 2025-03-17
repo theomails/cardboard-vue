@@ -234,6 +234,17 @@ html {
     float: left;
     border: 1px solid cornflowerblue;
 }
+@media (max-width: 1000px) {
+    .func-card.rfc-card {
+        width: calc(100vw - 80px);
+    }
+}
+
+@media (min-width: 1000px) and (max-width: 1500px) {
+    .func-card.rfc-card {
+        width: calc(50vw - 50px);
+    }
+}
 
 /* FLEX ROW, MARGINS, BOLD, NO-WRAP */
 .func-flex-col{

@@ -1,23 +1,28 @@
 <template>
     <div class="app-data-input func-gap-bottom">
         <div class="app-data-current func-flex-row func-flex-row--spaced">
-            <div class="func-bold func-nowrap">Tracked Issues</div>
-            <div class="app-issue-tags func-flex-grow func-flex-row func-flex-row--spaced func-flex-row--wrap">
-                <div v-for="issueKey in currentIssueKeys" class="func-tag func-nowrap">
-                    <span>{{ issueKey }}</span>
-                    <span class="func-close-x" @click="refreshIssueKey(issueKey)"><font-awesome-icon :icon="['fas', 'rotate']" /></span>
-                    <span class="func-close-x" @click="removeIssueKey(issueKey)">X</span>
+            <div>
+                <div class="func-bold func-nowrap">Tracked Issues</div>
+                <div class="app-issue-tags func-flex-grow func-flex-row func-flex-row--spaced func-flex-row--wrap"
+                    style="justify-content: flex-start;">
+                    <div v-for="issueKey in currentIssueKeys" class="func-tag func-nowrap">
+                        <span>{{ issueKey }}</span>
+                        <span class="func-close-x" @click="refreshIssueKey(issueKey)"><font-awesome-icon :icon="['fas', 'rotate']" /></span>
+                        <span class="func-close-x" @click="removeIssueKey(issueKey)">X</span>
+                    </div>
+                </div>                
+                <div v-if="currentIssueKeys.length === 0">
+                    No issues currently being tracked.
                 </div>
-                <span class="func-flex-grow"></span>
             </div>
-            <div v-if="currentIssueKeys.length === 0">
-                No issues currently being tracked.
-            </div>
-            <div class="func-flex-row func-flex-row--spaced">
-                <label for="id-add-issue" class="func-nowrap">Add Issue</label>
-                <input id="id-add-issue" type="text" v-model="newIssueKey" @input="issueKeyToUpperCase"/>
-                <div class="func-tag func-nowrap func-tag-btn" @click="addIssueKey()">Add</div>     
-                <div class="func-tag func-nowrap func-tag-btn" @click="addIssueKey(true)">Add Today</div>     
+            <div class="func-flex-grow"></div>
+            <div class="func-flex-col" style="margin:0px 30px; align-items: flex-start;">
+                <label for="id-add-issue" class="func-nowrap func-bold">Add Issue</label>
+                    <input id="id-add-issue" type="text" v-model="newIssueKey" @input="issueKeyToUpperCase"/>
+                <div class="func-flex-row func-flex-row--spaced" style="width: calc(100% + 10px); margin-top: 5px; justify-content: flex-start;">
+                    <div class="func-tag func-nowrap func-tag-btn" @click="addIssueKey()">Add</div>     
+                    <div class="func-tag func-nowrap func-tag-btn" @click="addIssueKey(true)">Add Today</div>     
+                </div>
             </div>
 
             <Menu menuId="historyMenu"
@@ -29,7 +34,7 @@
                 </template>
             </Menu>
 
-            <div class="func-tag func-nowrap func-tag-btn" @click="downloadData()"><span><font-awesome-icon :icon="['fas', 'download']" /></span></div>
+            <!-- div class="func-tag func-nowrap func-tag-btn" @click="downloadData()"><span><font-awesome-icon :icon="['fas', 'download']" /></span></div -->
         </div>
     </div> <!-- END data input -->    
 </template>

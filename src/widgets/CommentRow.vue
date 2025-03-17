@@ -1,8 +1,22 @@
 <template>
     <div class="func-flex-row func-flex-row--spaced app-comment-row" :style="styleFromComment">
-        <div class="func-nowrap">Comments: </div>
-        <div class="func-flex-grow" :class="{'func-ta-subtle': !isCommentChanged}">
-            <textarea :rows="commentLineCount" v-model="myIssueComment"></textarea></div>
+        <div class="func-flex-col func-flex-col--spaced" style="width: 100%; align-items: stretch;">
+            <div class="func-nowrap func-bold">Comments: </div>
+            <div class="func-flex-grow" :class="{'func-ta-subtle': !isCommentChanged}">
+
+                <textarea :rows="commentLineCount" v-model="myIssueComment"
+                    @keydown.ctrl.s.prevent.stop="saveIssueComment"></textarea>
+            </div>            
+            <div class="func-flex-grow func-flex-row func-flex-row--spaced func-flex-row--wrap"
+                    style="justify-content: flex-start; margin-top: -5px">
+                <div v-for="issueKey in detectedIssueKeys" class="func-tag func-nowrap" style="margin-top: 5px;">
+                    <span>{{ issueKey }}</span>
+                    <span class="func-close-x" @click="copyIssueKey(issueKey)"><font-awesome-icon :icon="['fas', 'copy']" /></span>
+                    <span class="func-close-x" @click="addIssueKey(issueKey)"><font-awesome-icon :icon="['fas', 'square-plus']" /></span>
+                    <span class="func-close-x" @click="openIssue(issueKey)"><font-awesome-icon :icon="['fas', 'square-up-right']" /></span>
+                </div>                
+            </div>
+        </div>
 
         <Menu :menuId="'colorMenu-' + issue.key"
             menuMaxWidth="200px"
@@ -23,6 +37,7 @@
     </div>    
 </template>
 <script>
+import { eventBus } from '@/services/eventbus';
 export default {
     props: ['issueComment', 'issue'],
     data(){
@@ -45,6 +60,7 @@ export default {
     },
     mounted(){
         this.myIssueComment = this.issueComment || '';
+        this.myIssueComment = this.myIssueComment.trim();
     },
      watch:{
          issueComment(){
@@ -52,7 +68,21 @@ export default {
          }
      },
     methods: {
+        addIssueKey(issueKey){
+            eventBus.emit('global-add-issue-key', issueKey);
+        },
+        copyIssueKey(issueKey){
+            navigator.clipboard.writeText(issueKey)
+                .catch(err => {
+                    console.error('Failed to copy: ', err);
+                });
+        },
+        openIssue(issueKey){
+            let issueLink = `https://redflex.atlassian.net/browse/${issueKey}`;
+            window.open(issueLink, '_blank');
+        },
         saveIssueComment(){
+            this.myIssueComment = this.myIssueComment.trim();
             this.$emit('save-issue-comment', this.issue.key, this.myIssueComment);
         },
         revertIssueComment(){
@@ -90,6 +120,17 @@ export default {
         }
     },
     computed: {
+        detectedIssueKeys(){
+            let uniqueMatches = [];
+            const pattern = /\b\w+-\w+\b/g;
+            const matches = this.myIssueComment.match(pattern) || [];
+            matches.forEach(match => {
+                if (!uniqueMatches.includes(match)) {
+                    uniqueMatches.push(match);
+                }
+            });     
+            return uniqueMatches;       
+        },
         isCommentChanged(){
             var myIssueComment = this.myIssueComment || '';
             var inIssueComment = this.issueComment || '';
