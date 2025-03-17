@@ -223,25 +223,21 @@ html {
     padding: 10px;
     margin-bottom: 10px;
 }
-.func-card.issue-card{
-    width: calc(25vw - 40px);
-    margin: 10px;
-    float: left;
-}
-.func-card.rfc-card{
+
+.func-card.rfc-card, .func-card.issue-card{
     width: calc(33vw - 40px);
     margin: 10px;
     float: left;
     border: 1px solid cornflowerblue;
 }
 @media (max-width: 1000px) {
-    .func-card.rfc-card {
+    .func-card.rfc-card, .func-card.issue-card{
         width: calc(100vw - 80px);
     }
 }
 
 @media (min-width: 1000px) and (max-width: 1500px) {
-    .func-card.rfc-card {
+    .func-card.rfc-card, .func-card.issue-card{
         width: calc(50vw - 50px);
     }
 }

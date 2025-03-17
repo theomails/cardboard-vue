@@ -33,7 +33,7 @@
                 </div>
             </div> 
         </div>
-        
+        <div style="clear:both"></div>
         <div class="func-cards-container">
             <div v-for="issueKey in storyKeys">
                 <IssueCard v-if="currentIssuesData[issueKey]?.data" 
