@@ -4,6 +4,16 @@
         <div style='flex-grow:1'></div>
         <div><a href="#" @click.stop="reviewSetup=true">User Credentials</a></div>
     </div>
+    <CardPopup v-if="popupCardKey" 
+        :cardType="toEntityType(popupCardKey)" 
+        :issueKey="popupCardKey"
+        :issue="currentIssuesData[popupCardKey]?.data" 
+        :issueComment="swdToolsData.issueComments[popupCardKey]"
+        :myName='userDetails.userDisplayName'
+        @close-card-popup="closeCardPopup"
+        @refresh-issue-key="refreshIssueKey"
+        @save-issue-comment="saveIssueComment"
+    />
     <SetupOverlay v-if='userObj == null || reviewSetup' 
         :reviewSetup
         @user-obj-found="onUserObjFound" />
@@ -67,6 +77,7 @@ export default {
     data() {
         return {
             userObj: null, //User email, name, token purely in LS
+            popupCardKey: null,
             reviewSetup: false,
             currentIssuesData: {}, //PURELY memory cache of Jira details
             swdToolsData: {
@@ -77,6 +88,9 @@ export default {
         };
     },
     methods: {
+        closeCardPopup(){
+            this.popupCardKey = null;
+        },
         onUserObjFound(userObj){
             this.userObj = userObj;
             this.reviewSetup = false;
@@ -105,6 +119,17 @@ export default {
                     console.log(error);
                     alert('Some error occured while saving User app data.');
                 })
+        },
+        addIssueKeyForPopup(newIssueKey){
+            if(!newIssueKey){
+                alert(`Invalid issue key .`);
+                return currentIssueKeysCsv;
+            }
+            newIssueKey = newIssueKey.trim().toUpperCase(); //clean
+            this.popupCardKey = newIssueKey;
+
+            console.log('loading jira data');
+            this.loadIssueDetails(newIssueKey);
         },
         addIssueKey(newIssueKey){
             if(!newIssueKey){
@@ -142,6 +167,9 @@ export default {
             console.log('loading jira data');
             this.loadIssueDetails(issueKey);
         },
+        toEntityType(issueKey){
+            return issueKey.match('(RFC|CAB)-(.*)') ? 'rfc' : 'issue';
+        },
         loadIssueDetails(issueKey) {
             if(issueKey.startsWith('DAY-')){
                 console.log('placing dummy data for day');
@@ -149,7 +177,7 @@ export default {
                 return;
             }
             
-            const apiEntity = issueKey.match('(RFC|CAB)-(.*)') ? 'rfc' : 'issue';
+            const apiEntity = this.toEntityType(issueKey);
 
             console.log('Service call for jira data');
             jiraservice.getDetails(apiEntity, issueKey, issueKey)
@@ -198,10 +226,10 @@ export default {
         }
     },
     created(){
-        eventBus.on('global-add-issue-key', this.addIssueKey);
+        eventBus.on('global-add-issue-key', this.addIssueKeyForPopup);
     },
     beforeUnmount(){
-        eventBus.off('global-add-issue-key', this.addIssueKey);
+        eventBus.off('global-add-issue-key', this.addIssueKeyForPopup);
     },
     computed:{
         userDetails(){

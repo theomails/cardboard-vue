@@ -1,5 +1,6 @@
 <template>
-    <div class="func-flex-row func-flex-row--spaced">
+    <div class="app-task-row func-flex-row func-flex-row--spaced">
+        <span class="func-close-x" @click="copyIssueKey(jiraObj.key)"><font-awesome-icon :icon="['fas', 'copy']" /></span>
         <span class="func-nowrap ">
             <a target="_blank" :href="jiraLink">{{ jiraObj.key }}</a>   
         </span>
@@ -13,6 +14,22 @@
 </template>
 <script>
 export default {
-    props: ['jiraObj', 'jiraLink']
+    props: ['jiraObj', 'jiraLink'],
+    methods: {
+        copyIssueKey(issueKey) {
+            navigator.clipboard.writeText(issueKey)
+                .then(() => {
+                    console.log('Issue key copied to clipboard:', issueKey);
+                })
+                .catch(err => {
+                    console.error('Failed to copy issue key:', err);
+                });
+        }
+    }
 }
 </script>
+<style>
+.app-task-row .func-close-x{
+    color: #666;
+}
+</style>

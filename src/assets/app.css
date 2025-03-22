@@ -6,6 +6,7 @@ html {
 }
 
 #app{
+    position: relative;
     max-width: 100vw;
     min-height: 100vh;
     padding: 20px;
@@ -37,7 +38,7 @@ html {
 
 .func-close-x{
     margin-left: 10px;
-    font-size: 0.8em;
+    font-size: 1em;
     cursor: pointer;
 }
 .app-card-toolbar{
@@ -101,8 +102,8 @@ html {
     position: absolute;
     top: 0px;
     left: 0px;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: #1616163b;
     z-index: 200;
     margin: 0px;
@@ -111,7 +112,6 @@ html {
 .app-modal-window{
     position: relative;
     width: 600px;
-    top: 100px;
     margin: auto;
     background-color: white;
     padding: 20px;
@@ -224,23 +224,40 @@ html {
     padding: 10px;
     margin-bottom: 10px;
 }
-
 .func-card.rfc-card, .func-card.issue-card{
-    width: calc(33vw - 40px);
     margin: 10px;
     float: left;
-    border: 1px solid cornflowerblue;
+    border: 1px solid cornflowerblue;    
+}
+.func-card.rfc-card, .func-card.issue-card, .app-modal-window{
+    width: calc(33vw - 40px);
 }
 @media (max-width: 1000px) {
-    .func-card.rfc-card, .func-card.issue-card{
+    .func-card.rfc-card, .func-card.issue-card, .app-modal-window{
         width: calc(100vw - 80px);
     }
 }
 
 @media (min-width: 1000px) and (max-width: 1500px) {
-    .func-card.rfc-card, .func-card.issue-card{
+    .func-card.rfc-card, .func-card.issue-card, .app-modal-window{
         width: calc(50vw - 50px);
     }
+}
+
+.app-modal-window.func-card-popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    border: 1px solid cornflowerblue;    
+}
+.app-modal-window .func-card.rfc-card, .app-modal-window .func-card.issue-card{
+    width: auto;
+    float: none;
+    border: none;
+    margin: 0px;
+    box-shadow: none;
 }
 
 /* FLEX ROW, MARGINS, BOLD, NO-WRAP */
