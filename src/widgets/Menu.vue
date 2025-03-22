@@ -77,9 +77,11 @@ export default {
     },
     computed:{
         filteredMenuItems(){
-            if(this.filterText){
+            if (this.filterText) {
+                const keywords = this.filterText.toLowerCase().split(' ');
                 return this.menuItems.filter((item) => {
-                    return this.searchRender(item).includes(this.filterText.toLowerCase());
+                    const itemText = this.searchRender(item);
+                    return keywords.every(keyword => itemText.includes(keyword));
                 });
             } else {
                 return this.menuItems;
