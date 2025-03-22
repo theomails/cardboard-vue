@@ -122,7 +122,7 @@ export default {
     computed: {
         detectedIssueKeys(){
             let uniqueMatches = [];
-            const pattern = /\b\w+-\w+\b/g;
+            const pattern = /\b[a-zA-Z]{2,4}-\d{2,5}\b/g;
             const matches = this.myIssueComment.match(pattern) || [];
             matches.forEach(match => {
                 if (!uniqueMatches.includes(match)) {
