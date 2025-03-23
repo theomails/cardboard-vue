@@ -69,7 +69,7 @@ const removeIssue = (issueKey) => {
   color: white;
 }
 
-.drag-handle:hover {
+.func-tag:hover .drag-handle {
   color: #e0e0e0;
 }
 
