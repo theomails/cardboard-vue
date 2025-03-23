@@ -20,7 +20,7 @@
     <div>
         <ControlPanel :currentIssueKeys='currentIssueKeys' :historyMenuItems="filteredHistoryMenuItems"
                 @add-issue-key='addIssueKey' @remove-issue-key='removeIssueKey' 
-                @refresh-issue-key='refreshIssueKey' ></ControlPanel>
+                @refresh-issue-key='refreshIssueKey' @reorder-issue-keys='reorderIssueKeys' ></ControlPanel>
         
         <div class="func-cards-container">
             <div v-for="issueKey in rfcKeys">
@@ -223,6 +223,13 @@ export default {
             this.swdToolsData.historyMenuItems[issueKey] = this.swdToolsData.historyMenuItems[issueKey] || 'No data';
             console.log('saving user data');
             this.persistAppData(); //Fire and forget
+        },
+        reorderIssueKeys(newOrder) {
+            console.log('Reordering issue keys:', newOrder);
+            if (newOrder && Array.isArray(newOrder)) {
+                this.swdToolsData.currentIssueKeysCsv = newOrder.join(',');
+                this.persistAppData(); // Fire and forget
+            }
         }
     },
     created(){

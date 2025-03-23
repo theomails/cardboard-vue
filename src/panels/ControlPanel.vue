@@ -6,6 +6,7 @@
                     :issueKeys="currentIssueKeys"
                     @refresh="refreshIssueKey"
                     @remove="removeIssueKey"
+                    @reorder="handleReorder"
                 />
             </div>
             <div class="func-flex-grow"></div>
@@ -78,6 +79,9 @@ export default {
             link.download = 'swd-tools-exp-data-'+ moment().format('DDMMM') +'.json';
             link.click();
             URL.revokeObjectURL(url);
+        },
+        handleReorder(newOrder) {
+            this.$emit('reorder-issue-keys', newOrder);
         }
     }
 }
