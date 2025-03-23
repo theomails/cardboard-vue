@@ -2,18 +2,11 @@
     <div class="app-data-input func-gap-bottom">
         <div class="app-data-current func-flex-row func-flex-row--spaced">
             <div>
-                <div class="func-bold func-nowrap">Tracked Issues</div>
-                <div class="app-issue-tags func-flex-grow func-flex-row func-flex-row--spaced func-flex-row--wrap"
-                    style="justify-content: flex-start;">
-                    <div v-for="issueKey in currentIssueKeys" class="func-tag func-nowrap">
-                        <span>{{ issueKey }}</span>
-                        <span class="func-close-x" @click="refreshIssueKey(issueKey)"><font-awesome-icon :icon="['fas', 'rotate']" /></span>
-                        <span class="func-close-x" @click="removeIssueKey(issueKey)">X</span>
-                    </div>
-                </div>                
-                <div v-if="currentIssueKeys.length === 0">
-                    No issues currently being tracked.
-                </div>
+                <TrackedIssues 
+                    :issueKeys="currentIssueKeys"
+                    @refresh="refreshIssueKey"
+                    @remove="removeIssueKey"
+                />
             </div>
             <div class="func-flex-grow"></div>
             <div class="func-flex-col" style="margin:0px 30px; align-items: flex-start;">
@@ -40,8 +33,12 @@
 </template>
 <script>
 import moment from 'https://cdn.jsdelivr.net/npm/moment@2.29.1/dist/moment.js';
+import TrackedIssues from '../components/TrackedIssues.vue';
 
 export default {
+    components: {
+        TrackedIssues
+    },
     props: ['currentIssueKeys', 'historyMenuItems'],
     data(){
         return {
@@ -85,3 +82,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+.func-tag-btn {
+    cursor: pointer;
+}
+</style>
